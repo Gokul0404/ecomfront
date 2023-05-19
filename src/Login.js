@@ -141,7 +141,7 @@ const [value,setValue]=useState('')
                 </div>
 
                 <Captcha
-                  sitekey="6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
+                  sitekey="6Le6xCAmAAAAAOwOjawHOZPdJK4MA7Ku9LS7D6pT"
                   className="pb-5"
                   onChange={(value) => setCaptcha(value)}
                 />
