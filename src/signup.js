@@ -31,9 +31,13 @@ export default function Signup() {
         } else if (!captcha) {
           toast.error("fill the capcha");
         } else {
-          await axios.post("http://localhost:5000/sign", {
-            form,
+          // await axios.post("http://localhost:5000/sign", {
+          //   form,
          
+          //   })
+          await axios
+            .post("https://ecomserver.vercel.app/sign", {
+              form,
             })
             .then((res) => {
               if (res.data == "exist") {
@@ -41,7 +45,7 @@ export default function Signup() {
               } else if ((res.data = "noexist")) {
                 Cookie.set("email", form.email, { expires: 7 });
                 toast.success("Successfuly rejesterd");
-                 setForm(initialstate)
+                setForm(initialstate);
               }
             });
           console.log("send data");

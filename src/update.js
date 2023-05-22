@@ -29,7 +29,11 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
     console.log(id._id, "shdjj");
 
     try {
-     await axios.patch(`http://localhost:5000/upadte/${id._id} `, field);
+    //  await axios.patch(`http://localhost:5000/upadte/${id._id} `, field);
+     await axios.patch(
+       `https://ecomserver.vercel.app/upadte/${id._id} `,
+       field
+     );
      console.log("Successfuly Updated");
      toast.success("Successfuly Updated");
      getvalue();

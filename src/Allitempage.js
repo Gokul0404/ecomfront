@@ -20,8 +20,12 @@ export default function Allitempage() {
   const alldatas = async () => {
     try {
       setLoading(true);
+      // await axios
+      //   .post("http://localhost:5000/alldatas", {
+      //     selectedoption,
+      //   })
       await axios
-        .post("http://localhost:5000/alldatas", {
+        .post("https://ecomserver.vercel.app/alldatas", {
           selectedoption,
         })
         .then((res) => {
@@ -53,8 +57,13 @@ export default function Allitempage() {
   const pageChangeSubmit = async () => {
     try {
       setLoading(true);
+      // await axios
+      //   .post("http://localhost:5000/pageChange", {
+      //     selectedoption,
+      //     pageNum,
+      //   })
       await axios
-        .post("http://localhost:5000/pageChange", {
+        .post("https://ecomserver.vercel.app/pageChange", {
           selectedoption,
           pageNum,
         })

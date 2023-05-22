@@ -36,18 +36,23 @@ export default function AdminPage({ getvalue }) {  //getvalue adminmain page la 
   const cliked = async (e) => {
     e.preventDefault();
     try {
+    //   await axios
+    //     .post("http://localhost:5000/adminupdate", {
+    //       form,
+    //       allimage,
+    //  })
       await axios
-        .post("http://localhost:5000/adminupdate", {
+        .post("https://ecomserver.vercel.app/adminupdate", {
           form,
           allimage,
-     })
+        })
         .then((res) => {
           if (res.data == "pass") {
             toast.success("succesfuly added");
             setForm(initicial);
             setAllimage([]);
-            
-            getvalue() //adminmain page la irunthu inga trigger agum
+
+            getvalue(); //adminmain page la irunthu inga trigger agum
           } else {
             toast.error("sometimes went wrong");
           }

@@ -64,15 +64,17 @@ const [value,setValue]=useState('')
       if (!captcha) {
         toast.error("fill the captcha");
       } else {
+        // await axios
+        //   .post("http://localhost:5000/login", {
+        //     form,
+        //   })
         await axios
-          .post("http://localhost:5000/login", {
+          .post("https://ecomserver.vercel.app/login", {
             form,
           })
           .then((res) => {
             if (res.data == "loginpass") {
               Cookie.set("email", form.email, { expires: 7 });
-       
-              
 
               toast.success("succesfuly login");
             } else if (res.data == "nouser") {
