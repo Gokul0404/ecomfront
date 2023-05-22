@@ -48,6 +48,7 @@ const [value,setValue]=useState('')
       // localStorage.setItem("email", data.user.email)
       Cookie.set("email", data.user.email);
       Cookie.set("name", data.user.displayName);
+      console.log("ewfwfwefwfwfwfwfwf", data);
     
     })
   }
@@ -141,7 +142,8 @@ const [value,setValue]=useState('')
                 </div>
 
                 <Captcha
-                  sitekey="6Le6xCAmAAAAAOwOjawHOZPdJK4MA7Ku9LS7D6pT"
+                  // {"6Le6xCAmAAAAAOwOjawHOZPdJK4MA7Ku9LS7D6pT"
+                   sitekey =  "6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
                   className="pb-5"
                   onChange={(value) => setCaptcha(value)}
                 />

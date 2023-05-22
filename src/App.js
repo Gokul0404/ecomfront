@@ -15,6 +15,7 @@ import Resetpass from "./Resetpass";
 import AdminPage from "./AdminPage";
 import Adminmain from "./Adminmain";
 import Cart from "./cart page/Cart";
+import SingleproductDetails from "./SingleproductDetails";
 
 function App() {
   const [cookieval, setCookieval] = useState(cookie.get("email"));
@@ -54,7 +55,11 @@ function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/rpass" element={<Resetpass />} />
         <Route path="/adminpage" element={<AdminPage />} />
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/cart" element={<Cart />} />
+        <Route
+          path="/singleproductdetails"
+          element={<SingleproductDetails />}
+        />
       </Routes>
 
       <Footer />

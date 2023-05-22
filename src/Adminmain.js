@@ -174,7 +174,7 @@ export default function Adminmain() {
                         <td class="  border-b-2 border-slate-300 flex justify-center !h-[20vh]">
                           <img
                             draggable="false"
-                            src={dat.img}
+                            src={dat.img[0]}
                             alt="img"
                             // width="120px"
                             height="10px"

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { IoTennisballSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ const initialState = {
     : [],
   cartTotalQuantity: 0,
   cartTotalaAmount: 0,
+  sigleproduct:[]
 }; 
 
 const cartSlice = createSlice({
@@ -21,7 +23,7 @@ const cartSlice = createSlice({
         (item) => item.id === action.payload.id
       );
 
-      console.log(action.payload.id);
+      
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
         toast.info(
@@ -32,8 +34,11 @@ const cartSlice = createSlice({
         state.cartItems.push(tempProduct);
         toast.success(` ${action.payload.name} added to cart`);
         // state.cartItems.push(action.payload)
+        console.log("item", itemIndex);
+         console.log("state", action.payload);
       }
       localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
+     
     },
 
     //remove the product in cart page   //Increase the product quantity
@@ -81,8 +86,8 @@ const cartSlice = createSlice({
           
           let { total, quantity } = state.cartItems.reduce(
               (cartTotal, cartItem) => {
-                  const { price, cartQuantity } = cartItem;
-                  const itemTotal = price * cartQuantity
+                  const { off, price, cartQuantity } = cartItem;
+                  const itemTotal =(off ? off: price )* cartQuantity
                   cartTotal.total += itemTotal
                   cartTotal.quantity += cartQuantity
                   return cartTotal;
@@ -95,14 +100,30 @@ const cartSlice = createSlice({
 
           state.cartTotalQuantity = quantity;
           state.cartTotalaAmount=total
-      }
+    },
       
+      
+    // addsingleproductData(state, action) {
+    //   const siglevalue = action.payload
+
+    //   state.sigleproduct.push(siglevalue);
+    //   Cookies.set("singleproduct", JSON.stringify(state.sigleproduct));
+    //   console.log(action.payload);
+
+    //   }
+
       
     },
   
 });
 
 
-export const { addToCart, removeFromCart, decreaseCart, cleardata, getTotals } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  decreaseCart,
+  cleardata,
+  getTotals,
+  // addsingleproductData,
+} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -16,7 +16,7 @@ import { Divider } from "antd";
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  console.log(cart);
+  console.log("cart",cart);
 
   useEffect(() => {
     dispatch(getTotals());
@@ -78,7 +78,7 @@ export default function Cart() {
                     <div className="flex">
                       <div className=" flex w-[350px] ">
                         <span className="w-[170px] ml-5">
-                          <img src={d.img} className=" " />
+                          <img src={d.img[0]} className=" " />
                         </span>
                         <div className="pt-5 pl-5">
                           <h2>{d.name}</h2>
@@ -90,21 +90,21 @@ export default function Cart() {
                       <h3 className="pt-5 text-center flex">
                         {" "}
                         <BsCurrencyRupee className="mt-1" />
-                        {d.price}
+                        {d.off ? d.off : d.price}
                       </h3>
                     </div>
                     <div className=" flex h-[8%] pt-1 w-[27vw] justify-center items-center ">
                       <div className="flex flex-row  border border-[#cecece] mt-5 px-1 ">
                         <button className=" cursor-pointer">
                           <BsPlusLg
-                            className="text-[13px] text-[#818181]"
+                            className="text-[13px] text-[#818181] active:text-green-600"
                             onClick={() => Incrasevalue(d)}
                           />
                         </button>
                         <div className="px-5">{d.cartQuantity}</div>
                         <button className="cursor-pointer ">
                           <AiOutlineMinus
-                            className="text-[13px] text-[#818181]"
+                            className="text-[13px] text-[#818181] active:text-red-600"
                             onClick={() => decreaseCount(d)}
                           />
                         </button>
@@ -113,7 +113,7 @@ export default function Cart() {
                     <div className=" flex justify-center w-[3.5vw] pt-5 ">
                       <h3 className="flex">
                         <BsCurrencyRupee className="mt-1" />
-                        {d.price * d.cartQuantity}
+                        {(d.off? d.off: d.price) * d.cartQuantity}
                       </h3>
                     </div>
                   </div>

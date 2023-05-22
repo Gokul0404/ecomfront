@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import axios from "axios";
+import { toast } from "react-toastify";
 export default function Update({ setUpopen, singledata, updateda, getvalue }) {
   // const[open, setOpen]=useState(!false)
 
@@ -11,15 +12,28 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
     offer: updateda.offer,
     stocks: updateda.stocks,
     img: updateda.img,
+ 
   });
+ 
+
+
+
+
+
+  
+
+
+
 
   const updateddata = async (id) => {
     console.log(id._id, "shdjj");
-    console.log(field);
+
     try {
-      await axios.patch(`http://localhost:5000/upadte/${id._id} `, field);
-        console.log("Successfuly Updated");
-        getvalue()
+     await axios.patch(`http://localhost:5000/upadte/${id._id} `, field);
+     console.log("Successfuly Updated");
+     toast.success("Successfuly Updated");
+     getvalue();
+      
     } catch (error) {
       console.log("updated fail");
       console.log(error);
@@ -34,6 +48,7 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
         centered
         open={true}
         width={1000}
+ 
         footer={null}
         onOk={() => setUpopen(false)}
         onCancel={() => setUpopen(false)}
@@ -96,8 +111,8 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
               />
             </div>
           </div>
-          <div className="relative">
-            <div className="flex  my-3 gap-[12%] ml-3 ">
+          <div className="relative h-[45vh]">
+            <div className="flex  my-3 gap-[12.55%] ml-3 ">
               <label className="font-bold text-[14.5px] pt-1">Offer</label>
               <input
                 type="text"
@@ -110,12 +125,15 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
               />
             </div>
             <div className="flex flex-row justify-around my-3">
-              <label className="font-bold text-[14.5px] pt-2">Image Url</label>
+              <label className="font-bold text-[14.5px] pt-2">Image Url1</label>
               <input
                 type="text"
                 className="border border-gray-300 w-[330px] h-[35px] mr-5"
                 name="img"
-                value={field.img}
+                value={
+                  field.img
+               
+                }
                 onChange={(e) => {
                   setField({ ...field, [e.target.name]: e.target.value });
                 }}
@@ -124,7 +142,7 @@ export default function Update({ setUpopen, singledata, updateda, getvalue }) {
             <div className="pl-[23%]">
               <p className="w-[90%]"></p>
             </div>
-            <div className="flex gap-x-5 absolute bottom-0 ml-[260px]">
+            <div className="flex gap-x-5 absolute bottom-0  ml-[260px]">
               <input
                 onClick={() => setUpopen(false)}
                 type="button"

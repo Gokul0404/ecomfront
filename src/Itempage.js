@@ -4,7 +4,8 @@ import React, { useEffect } from "react";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom'
-import { addToCart } from "./redexcart/Slice";
+import { addToCart, addsingleproductData } from "./redexcart/Slice";
+import Cookies from "js-cookie";
 export default function Itempage(props) {
 
 
@@ -22,18 +23,29 @@ export default function Itempage(props) {
   
 
   const handleAddtoCart = (props) => {
-    console.log(props);
-    dispatch(addToCart(props)) //addto cart is comming in slice file
+     const datas = { ...props, off: final };
+    console.log("itemspage", datas);
+    dispatch(addToCart(datas)); //addto cart is comming in slice file
     // navigate("/cart");
 
-}
+  }
+  
+  const singleProduct = (props, final) => {
+    // dispatch(addsingleproductData(props));
+   const  datas={...props, off:final}
+    console.log("off",datas);
+    Cookies.set("singleproducts", JSON.stringify(datas));
+    navigate("/singleproductdetails");
+  };
 
+  
   return (
     <div>
       <a className="flex relative h-48 justify-center rounded overflow-hidden">
         <img
           draggable="false"
           className="object-contain w-full h-full block"
+          onClick={() => singleProduct(props, final)}
           src={`${props.img[0]}`}
           alt="dc"
         />

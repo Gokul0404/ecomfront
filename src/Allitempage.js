@@ -62,7 +62,7 @@ export default function Allitempage() {
           setData1(res.data);
         });
     } catch (error) {
-      toast.error("something went wrong");
+      toast.error("Datas not get to DB");
     } finally {
       setLoading(false);
     }
