@@ -56,7 +56,8 @@ export default function Adminmain() {
 
   const deleteval = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/deletedata/${id}`);
+      // await axios.delete(`http://localhost:5000/deletedata/${id}`); //localhost run path
+      await axios.delete(`https://ecomserver.vercel.app/${id}`); //vercel run path
       toast.success("Successfuly Deleted");
       getvalue();
     } catch (err) {
