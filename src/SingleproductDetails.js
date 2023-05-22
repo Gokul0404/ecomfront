@@ -35,14 +35,11 @@ try {
 
 
 
-  const back = () => {
-    Cookies.remove("singleproducts")
-  navigate('/')
-  }
+
   
   return (
     <>
-      <button onClick={(e) => back()}>d</button>
+    
       
       <div className="flex justify-center items-center">
         <div className="bg-white w-[70vw] h-[80vh] my-5 shadow-xl flex">
