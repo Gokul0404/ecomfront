@@ -31,7 +31,7 @@ export default function Itempage(props) {
     try {
         Cookies.set("singleproducts", JSON.stringify(datas));
       navigate("/singleproductdetails");
-      toast.success('datas send')
+      
     } catch (error) {
       console.log(error);
       console.log("ed3rdr");
