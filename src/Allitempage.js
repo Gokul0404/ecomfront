@@ -148,17 +148,26 @@ export default function Allitempage() {
           <button
             disabled={pageNum <= 1 ? true : false}
             onClick={prev}
-            className="text-white bg-indigo-500 border-0  py-1 px-6 focus:outline-none font-bold flex"
+            className={`${
+              (pageNum <= 1 ? true : false)
+                ? "text-white bg-indigo-500 border-0  py-1 px-6 focus:outline-none font-bold flex opacity-50"
+                : "text-white bg-indigo-500 border-0  py-1 px-6 focus:outline-none font-bold flex "
+            }`}
           >
+            {console.log(pageNum <= 1 ? true : false)}
             <ImPrevious className="text-[14px] mr-1 mt-[4.5px]" /> Prev
           </button>
           <p className="px-3 font-bold">
             Page : {pageNum}/{Math.ceil(totalitmes / 12)}
           </p>
           <button
-            disabled={pageNum >= Math.ceil(totalitmes / 12) ? true : false }
+            disabled={pageNum >= Math.ceil(totalitmes / 12) ? true : false}
             onClick={next}
-            className="text-white bg-indigo-500 border-0  py-1 font-bold px-6 focus:outline-none  flex"
+            className={`${
+              (pageNum >= Math.ceil(totalitmes / 12) ? true : false)
+                ? "text-white bg-indigo-500 border-0  py-1 font-bold px-6 focus:outline-none  flex opacity-50"
+                : "text-white bg-indigo-500 border-0  py-1 font-bold px-6 focus:outline-none  flex"
+            }`}
           >
             Next <BiSkipNextCircle className="text-[17px] ml-1 mt-[3.5px]" />
           </button>
