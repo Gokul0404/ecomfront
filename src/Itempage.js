@@ -3,15 +3,11 @@ import { Button } from "antd";
 import React, { useEffect } from "react";
 import { BsCurrencyRupee } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { addToCart, addsingleproductData } from "./redexcart/Slice";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 export default function Itempage(props) {
-
-
-
-
-
   let pricev = props.price;
   let off = props.offer[0];
   const price1 = off / 100;
@@ -19,26 +15,30 @@ export default function Itempage(props) {
   const final = pricev - final1;
   // console.log(pricev, price1, final, off);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
 
   const handleAddtoCart = (props) => {
-     const datas = { ...props, off: final };
+    const datas = { ...props, off: final };
     console.log("itemspage", datas);
     dispatch(addToCart(datas)); //addto cart is comming in slice file
     // navigate("/cart");
-
-  }
-  
-  const singleProduct = (props, final) => {
-    // dispatch(addsingleproductData(props));
-   const  datas={...props, off:final}
-    console.log("off",datas);
-    Cookies.set("singleproducts", JSON.stringify(datas));
-    navigate("/singleproductdetails");
   };
 
+  const singleProduct = (props, final) => {
+    // dispatch(addsingleproductData(props));
+    const datas = { ...props, off: final };
+    console.log("off", datas);
+    try {
+        Cookies.set("singleproducts", JSON.stringify(datas));
+      navigate("/singleproductdetails");
+      toast.success('datas send')
+    } catch (error) {
+      console.log(error);
+      console.log("ed3rdr");
+    }
   
+  };
+
   return (
     <div>
       <a className="flex relative h-48 justify-center rounded overflow-hidden">
