@@ -31,14 +31,14 @@ export default function Signup() {
         } else if (!captcha) {
           toast.error("fill the capcha");
         } else {
-          await axios.post("http://localhost:5000/sign", {
-            form,
+          // await axios.post("http://localhost:5000/sign", {
+          //   form,
          
-            })
-          // await axios
-          //   .post("https://ecomserver.vercel.app/sign", {
-          //     form,
           //   })
+          await axios
+            .post("https://ecomserver.vercel.app/sign", {
+              form,
+            })
             .then((res) => {
               if (res.data == "exist") {
                 toast.error("email already exist");

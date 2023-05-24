@@ -36,14 +36,14 @@ const datas = ["Electronics", "Toys", "Fashion", "Kitchen", "Sports"];
   const alldatas = async () => {
     try {
       setLoading(true);
-      await axios
-        .post("http://localhost:5000/alldatas", {
-          selectedoption,
-        })
       // await axios
-      //   .post("https://ecomserver.vercel.app/alldatas", {
+      //   .post("http://localhost:5000/alldatas", {
       //     selectedoption,
       //   })
+      await axios
+        .post("https://ecomserver.vercel.app/alldatas", {
+          selectedoption,
+        })
         .then((res) => {
           if (res.data == "fail") {
             toast.error("something went wrong");
@@ -73,16 +73,16 @@ const datas = ["Electronics", "Toys", "Fashion", "Kitchen", "Sports"];
   const pageChangeSubmit = async () => {
     try {
       setLoading(true);
-      await axios
-        .post("http://localhost:5000/pageChange", {
-          selectedoption,
-          pageNum,
-        })
       // await axios
-      //   .post("https://ecomserver.vercel.app/pageChange", {
+      //   .post("http://localhost:5000/pageChange", {
       //     selectedoption,
       //     pageNum,
       //   })
+      await axios
+        .post("https://ecomserver.vercel.app/pageChange", {
+          selectedoption,
+          pageNum,
+        })
         .then((res) => {
           setData1(res.data);
         });

@@ -35,8 +35,8 @@ export default function Adminmain() {
   const getvalue = async () => {
     try {
       setLoading(true);
-      const alldatas = await axios.get("http://localhost:5000/getval");
-      // const alldatas = await axios.get("https://ecomserver.vercel.app/getval");
+      // const alldatas = await axios.get("http://localhost:5000/getval");
+      const alldatas = await axios.get("https://ecomserver.vercel.app/getval");
       setDatas(alldatas.data);
       setRecords(alldatas.data);
      
@@ -66,8 +66,8 @@ export default function Adminmain() {
 
   const deleteval = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/deletedata/${id}`); //localhost run path
-      // await axios.delete(`https://ecomserver.vercel.app/deletedata/${id}`); //vercel run path
+      // await axios.delete(`http://localhost:5000/deletedata/${id}`); //localhost run path
+      await axios.delete(`https://ecomserver.vercel.app/deletedata/${id}`); //vercel run path
       toast.success("Successfuly Deleted");
       getvalue();
     } catch (err) {
