@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Button, Drawer, List, Spin } from "antd";
-import { AiFillFileAdd } from "react-icons/ai";
+import { AiFillDatabase, AiFillFileAdd } from "react-icons/ai";
 import { IoSearchOutline } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
+import { MdDelete, MdDeleteSweep } from "react-icons/md";
 import AdminPage from "./AdminPage";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Update from "./update";
 export default function Adminmain() {
-  const[loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [upopen, setUpopen] = useState(false);
   const [datas, setDatas] = useState([]);
   const [updateda, setupdate] = useState(); //update
+
   //filter
   const [records, setRecords] = useState([]);
+
+  
+
+
 
   const showDrawer = () => {
     setOpen(true);
@@ -29,16 +34,20 @@ export default function Adminmain() {
   //get val
   const getvalue = async () => {
     try {
-      setLoading(true)
-      // const alldatas = await axios.get("https://localhost:5000/getval");
-      const alldatas = await axios.get("https://ecomserver.vercel.app/getval");
+      setLoading(true);
+      const alldatas = await axios.get("http://localhost:5000/getval");
+      // const alldatas = await axios.get("https://ecomserver.vercel.app/getval");
       setDatas(alldatas.data);
-      https: setRecords(alldatas.data);
+      setRecords(alldatas.data);
+     
+      //  setRecords1(
+      //    datas.filter((f) => f.type.toLowerCase().includes("Electronics"))
+      //  );
       console.log(alldatas);
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -57,8 +66,8 @@ export default function Adminmain() {
 
   const deleteval = async (id) => {
     try {
-      // await axios.delete(`http://localhost:5000/deletedata/${id}`); //localhost run path
-      await axios.delete(`https://ecomserver.vercel.app/deletedata/${id}`); //vercel run path
+      await axios.delete(`http://localhost:5000/deletedata/${id}`); //localhost run path
+      // await axios.delete(`https://ecomserver.vercel.app/deletedata/${id}`); //vercel run path
       toast.success("Successfuly Deleted");
       getvalue();
     } catch (err) {
@@ -67,24 +76,63 @@ export default function Adminmain() {
     }
   };
 
-  useEffect(() => {
-    getvalue();
-  }, []);
-
   const Filter = (e) => {
     setRecords(
       datas.filter((f) =>
         f.name.toLowerCase().includes(e.target.value.toLowerCase())
+       
       )
     );
   };
-  console.log(records);
+
+  //select to delete
+
+  const [ischecked, setIschecked] = useState([]);
+
+  const handlecheckbox = (e) => {
+    const { value, checked } = e.target;
+  
+    if (checked) {
+      setIschecked([...ischecked, value]);
+    } else {
+      setIschecked(ischecked.filter((e) => e !== value));
+    }
+    console.log(ischecked.filter((e) => e !== value) ,"edwedwd");
+  };
+
+  const Alldelete = async () => {
+  
+    try {
+     console.log("sffpdnd", ischecked);
+      if (ischecked.length > 0) {
+           await axios.post("http://localhost:5000/alldeletedata", {
+             ischecked,
+           });
+        getvalue();
+        setIschecked([])
+
+           toast.success("successfuly deleted");
+      } else {
+        toast.error('please select the field')
+     }
+
+    
+    } catch (error) {
+      toast.error("select the products not deleted");
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    getvalue();
+    
+  }, []);
   return (
     <div className="flex">
       <div className=" bg-white ">
         {/* w-[300px] ...*/}
-        
-
 
         <div className="py-5 mx-5 text-[17px]">
           <h2 className=" font-bold  text-[20px]">Dasboard</h2>
@@ -118,10 +166,21 @@ export default function Adminmain() {
               placeholder="Search.."
               onChange={Filter}
             />
+
             <CiSearch className="absolute right-5 top-1 text-[25px] text-[#b6b4b4]" />
-          </div>{" "}
-          <button type="primary" onClick={showDrawer} className="ml-[320px]">
-            <AiFillFileAdd className="text-[35px]" />
+          </div>
+        
+          <div>
+            <button className=" mt-[5px]   ml-[250px] leading-4">
+              <MdDeleteSweep
+                className=" hover:text-red-600 text-[27px] px-[5px] bg-[#cccccc] py-1 rounded-md"
+                onClick={Alldelete}
+              />
+              <span className="text-[10px]">Delete</span>
+            </button>
+          </div>
+          <button type="primary" onClick={showDrawer} className="ml-[20px]">
+            <AiFillFileAdd className="text-[35px] hover:text-blue-500" />
             <p className="text-[10px]">Add</p>
           </button>
           <Drawer
@@ -138,8 +197,11 @@ export default function Adminmain() {
             <table class=" ">
               <thead>
                 <tr>
-                  <th class="border border-slate-300 px-[43px] py-5 text-[15px]">
+                  <th class="border border-slate-300 px-[25px] py-5 text-[15px]">
                     S.No
+                  </th>
+                  <th class="border border-slate-300 px-[25px] py-5 text-[15px]">
+                    Check
                   </th>
                   <th class="border border-slate-300 px-[43px] py-5 text-[15px]">
                     Image
@@ -167,16 +229,25 @@ export default function Adminmain() {
 
               {records.length > 0 ? (
                 <tbody className="">
-                  {records.map((dat, index) => {
+                  { records.map((dat, index) => {
                     return (
-                      <tr className="">
+                      <tr className="" key={index}>
                         <td class="border border-slate-300 text-center py-10 text-[14px]">
                           {index + 1}
                         </td>
+                        <td class="border border-slate-300 text-center py-10 text-[14px]">
+                          <input
+                            type="checkbox"
+                            value={dat._id}
+                            checked={dat.ischecked}
+                            onChange={(e) => handlecheckbox(e)}
+                          />
+                        </td>
+
                         <td class="  border-b-2 border-slate-300 flex justify-center !h-[20vh]">
                           <img
                             draggable="false"
-                            src={dat.img[0]}
+                            src={dat.img[0] || `./${dat.img[0]}`}
                             alt="img"
                             // width="120px"
                             height="10px"

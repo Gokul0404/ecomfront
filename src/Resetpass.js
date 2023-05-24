@@ -22,16 +22,16 @@ export default function ResetPassword() {
           const cookieVal = Cookies.get("resetEmail");
           console.log(cookieVal);
           console.log(password);
-        // await axios
-        //   .post(`http://localhost:5000/resetPassword`, {
-        //     cookieVal,
-        //     password,
-        //   })
         await axios
-          .post(`https://ecomserver.vercel.app/resetPassword`, {
+          .post(`http://localhost:5000/resetPassword`, {
             cookieVal,
             password,
           })
+        // await axios
+        //   .post(`https://ecomserver.vercel.app/resetPassword`, {
+        //     cookieVal,
+        //     password,
+        //   })
           .then((res) => {
             if (res.data == "pass") {
               toast.success("Password changed successfully");

@@ -34,7 +34,7 @@ export default function Itempage(props) {
       
     } catch (error) {
       console.log(error);
-      console.log("ed3rdr");
+      console.log("itemspage");
     }
   
   };

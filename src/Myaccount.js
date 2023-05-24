@@ -33,14 +33,14 @@ export default function Myaccount() {
   const submit = async (e) => {
    
     try {
-      // await axios
-      //   .post("http://localhost:5000/myaccount", {
-      //     cookieval
-      //   })
       await axios
-        .post("https://ecomserver.vercel.app/myaccount", {
-          cookieval,
+        .post("http://localhost:5000/myaccount", {
+          cookieval
         })
+      // await axios
+      //   .post("https://ecomserver.vercel.app/myaccount", {
+      //     cookieval,
+      //   })
         .then((res) => {
           setname(res.data);
           console.log(res);

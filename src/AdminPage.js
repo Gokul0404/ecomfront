@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faTrash } from "@fortawesome/free-solid-svg-icons";
+import { ImGlass } from "react-icons/im";
 
 export default function AdminPage({ getvalue }) {  //getvalue adminmain page la irunthu trigger aguthu
   const initicial = {
@@ -17,35 +18,63 @@ export default function AdminPage({ getvalue }) {  //getvalue adminmain page la 
   const [form, setForm] = useState(initicial);
 
   const [image, setImage] = useState("");
+  const [image1, setImage1] = useState("");
+  const [im, setIm] = useState(true);
+ 
   const [allimage, setAllimage] = useState([]);
 
   const imageChange = (e) => {
     setImage(e.target.value);
   };
-  const imageSubmit = (e) => {
-    if (image == "") {
+
+ 
+  
+  
+  const ImageSubmit = (e) => {
+  try {
+    if ((image ? image : image1[0].name) === "") {
       toast.error("image url cannot be empty");
     } else if (allimage.length >= 6) {
       toast.error("max 6 images are allowed");
     } else {
-      setAllimage([image, ...allimage]);
+      setAllimage([image ? image : image1[0].name, ...allimage]);
       setImage("");
+      setImage1("");
+      setIm(false)
+    
     }
+  } catch (error) {
+
+
+    toast.error('please select the images')
+  }
+    
+  
+      // if (image1[0] == "") {
+      //   toast.error("image url cannot be empty");
+      // } else if (allimage.length >= 6) {
+      //   toast.error("max 6 images are allowed");
+      // } else {
+      //   setAllimage([image1[0], ...allimage]);
+      //   setImage1("");
+        console.log(allimage);
+      // }
+    
   };
 
   const cliked = async (e) => {
     e.preventDefault();
     try {
-    //   await axios
-    //     .post("http://localhost:5000/adminupdate", {
-    //       form,
-    //       allimage,
-    //  })
       await axios
-        .post("https://ecomserver.vercel.app/adminupdate", {
+        .post("http://localhost:5000/adminupdate", {
           form,
           allimage,
-        })
+     })
+      // await axios
+      //   .post("https://ecomserver.vercel.app/adminupdate", {
+      //     form,
+      //     allimage,
+      //   })
         .then((res) => {
           if (res.data == "pass") {
             toast.success("succesfuly added");
@@ -74,6 +103,7 @@ export default function AdminPage({ getvalue }) {  //getvalue adminmain page la 
     setAllimage(newMessages);
   };
 
+ 
   return (
     <div className="scale-[90%]">
       <h1 className="text-center font-bold  text-[25px] pb-5">
@@ -176,11 +206,22 @@ export default function AdminPage({ getvalue }) {  //getvalue adminmain page la 
                   onChange={imageChange}
                   class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
+                <input
+                  multiple
+                  type="file"
+                  name="files"
+                  onChange={(e) => setImage1(e.target.files)}
+                  class={`${
+                    im
+                      ? "w-full mt-5   bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
+                      : "w-full mt-5   bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out text-transparent "
+                  }`}
+                />
               </div>
 
               <input
                 class="text-white bg-indigo-500 border-0 py-2 cursor-pointer px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg "
-                onClick={imageSubmit}
+                onClick={ImageSubmit}
                 value={"Add Image"}
                 type="button"
               />

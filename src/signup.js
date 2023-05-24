@@ -31,14 +31,14 @@ export default function Signup() {
         } else if (!captcha) {
           toast.error("fill the capcha");
         } else {
-          // await axios.post("http://localhost:5000/sign", {
-          //   form,
+          await axios.post("http://localhost:5000/sign", {
+            form,
          
-          //   })
-          await axios
-            .post("https://ecomserver.vercel.app/sign", {
-              form,
             })
+          // await axios
+          //   .post("https://ecomserver.vercel.app/sign", {
+          //     form,
+          //   })
             .then((res) => {
               if (res.data == "exist") {
                 toast.error("email already exist");
@@ -64,7 +64,7 @@ export default function Signup() {
 
   return (
     <div>
-      <form  onSubmit={submit}>
+      <form onSubmit={submit}>
         <section class="text-gray-600 body-font">
           <div class="container px-5 py-24  flex justify-center items-center">
             <div class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col  w-full mt-10 md:mt-0">
@@ -82,7 +82,7 @@ export default function Signup() {
                   name="name"
                   value={form.name}
                   onChange={(e) => {
-                    setForm({ ...form, [e.target.name]:e.target.value });
+                    setForm({ ...form, [e.target.name]: e.target.value });
                   }}
                   class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
@@ -98,7 +98,7 @@ export default function Signup() {
                   name="email"
                   value={form.email}
                   onChange={(e) => {
-                    setForm({...form,[e.target.name]: e.target.value });
+                    setForm({ ...form, [e.target.name]: e.target.value });
                   }}
                   class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
@@ -131,21 +131,23 @@ export default function Signup() {
                   name="cpassword"
                   value={form.cpassword}
                   onChange={(e) => {
-                    setForm({...form,[e.target.name]:e.target.value });
+                    setForm({ ...form, [e.target.name]: e.target.value });
                   }}
                   class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
               </div>
               <Captcha
-                sitekey="6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
+                sitekey="6Le6xCAmAAAAAOwOjawHOZPdJK4MA7Ku9LS7D6pT"
+                // sitekey="6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
                 className="pb-5"
-                onChange={(value) => { setCaptcha(value) }}
+                onChange={(value) => {
+                  setCaptcha(value);
+                }}
               />
               <input
                 class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg cursor-pointer"
                 type="submit"
                 value="Submit"
-                
               />
 
               <p class="text-ms text-gray-500 mt-3">Already have a account</p>

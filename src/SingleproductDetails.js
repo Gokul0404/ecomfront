@@ -5,15 +5,12 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsCurrencyRupee, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./redexcart/Slice";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function SingleproductDetails() {
-  const navigate = useNavigate()
-try {
-  
-} catch (error) {
-  
-}
+  const navigate = useNavigate();
+  try {
+  } catch (error) {}
   const alldatas = JSON.parse(Cookies.get("singleproducts"));
   console.log("data", alldatas);
   const offerprice = alldatas.off;
@@ -33,14 +30,8 @@ try {
 
   const [color, setColor] = useState(false);
 
-
-
-
-  
   return (
     <>
-    
-      
       <div className="flex justify-center items-center">
         <div className="bg-white w-[70vw] h-[80vh] my-5 shadow-xl flex">
           <div className="basis-3/5  relative ">
@@ -54,12 +45,13 @@ try {
             />
             <div className="flex justify-center items-center  ">
               <div className="w-[350px] h-[330px] !scale-[100%] overflow-hidden">
-                <img src={images} className="h-full w-full" />
+                <img draggable="false" src={images} className="h-full w-full" />
               </div>
             </div>
             <div className="flex justify-center items-center gap-x-3 !scale-[80%]">
               <div className="bg-white w-[130px] h-[138px] cursor-pointer  border-[#c5c5c5] border-r-[0.1px]">
                 <img
+                  draggable="false"
                   src={alldatas.img[1]}
                   className="w-[350px] mt-2"
                   onMouseOver={() => {
@@ -69,6 +61,7 @@ try {
               </div>
               <div className="bg-white w-[9vw] h-[22vh] cursor-pointer !scale-[100%]  border-[#c5c5c5] border-r-[0.1px]">
                 <img
+                  draggable="false"
                   src={alldatas.img[2]}
                   className="w-[350px] mt-2"
                   onMouseOver={() => setImages(alldatas.img[2])}
@@ -76,6 +69,7 @@ try {
               </div>
               <div className="bg-white w-[9vw] h-[22vh] cursor-pointer !scale-[100%]  border-[#c5c5c5] border-r-[0.1px]">
                 <img
+                  draggable="false"
                   src={alldatas.img[3]}
                   className="w-[350px] mt-2"
                   onMouseOver={() => setImages(alldatas.img[3])}
@@ -83,6 +77,7 @@ try {
               </div>
               <div className="bg-white w-[9vw] h-[22vh] cursor-pointer !scale-[100%]  ">
                 <img
+                  draggable="false"
                   src={alldatas.img[0]}
                   className="w-[350px] mt-2"
                   onMouseOver={() => setImages(alldatas.img[0])}

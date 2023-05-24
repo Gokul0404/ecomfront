@@ -10,7 +10,23 @@ import { ImPrevious } from "react-icons/im";
 export default function Allitempage() {
   const [data1, setData1] = useState([]);
   const [totalitmes, setTotalitems] = useState(0); //this is product count
-  const [selectedoption, setSelectedoption] = useState("All");
+
+const datas = ["Electronics", "Toys", "Fashion", "Kitchen", "Sports"];
+
+  
+
+
+
+  // const [selectedoption, setSelectedoption] = useState("All");
+  const [selectedoption, setSelectedoption] = useState('All' );
+   
+   
+        
+   
+  
+  
+    
+
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(false);
   
@@ -20,14 +36,14 @@ export default function Allitempage() {
   const alldatas = async () => {
     try {
       setLoading(true);
-      // await axios
-      //   .post("http://localhost:5000/alldatas", {
-      //     selectedoption,
-      //   })
       await axios
-        .post("https://ecomserver.vercel.app/alldatas", {
+        .post("http://localhost:5000/alldatas", {
           selectedoption,
         })
+      // await axios
+      //   .post("https://ecomserver.vercel.app/alldatas", {
+      //     selectedoption,
+      //   })
         .then((res) => {
           if (res.data == "fail") {
             toast.error("something went wrong");
@@ -57,16 +73,16 @@ export default function Allitempage() {
   const pageChangeSubmit = async () => {
     try {
       setLoading(true);
-      // await axios
-      //   .post("http://localhost:5000/pageChange", {
-      //     selectedoption,
-      //     pageNum,
-      //   })
       await axios
-        .post("https://ecomserver.vercel.app/pageChange", {
+        .post("http://localhost:5000/pageChange", {
           selectedoption,
           pageNum,
         })
+      // await axios
+      //   .post("https://ecomserver.vercel.app/pageChange", {
+      //     selectedoption,
+      //     pageNum,
+      //   })
         .then((res) => {
           setData1(res.data);
         });

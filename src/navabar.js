@@ -84,12 +84,8 @@ export default function Home() {
                   >
                     <Link to="/login"> Dashboard</Link>
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  >
-                    Team
-                  </a>
+                  <p className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
+                    <Link to='/soona'> Team</Link></p>
                   <a
                     href="#"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -113,7 +109,9 @@ export default function Home() {
                 <span className="sr-only ">View notifications</span>
                 <Link to="/cart" className="relative">
                   <IoCartOutline className="text-[25px] mr-10 hover:text-white" />
-                  <p className="absolute bg-red-600 rounded-full w-5 text-[12px] top-[-8px] left-4 text-white">{ cart.cartItems.length}</p>
+                  <p className="absolute bg-red-600 rounded-full w-5 text-[12px] top-[-8px] left-4 text-white">
+                    {cart.cartItems.length}
+                  </p>
                 </Link>
                 <svg
                   className="h-6 w-6 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -191,14 +189,14 @@ export default function Home() {
                       Logout
                     </a>
                   ) : (
-                    <a
+                    <p
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabindex="-1"
                       id="user-menu-item-2"
                     >
                       <Link to="/login">Account/Login</Link>
-                    </a>
+                    </p>
                   )}
                 </div>
                 <div className="sm:hidden" id="mobile-menu">
@@ -210,11 +208,8 @@ export default function Home() {
                     >
                       Dashboard
                     </a>
-                    <a
-                      href="#"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
-                    >
-                      Team
+                    <a className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">
+                      <Link to="/soona"> Team</Link>
                     </a>
                     <a
                       href="#"
