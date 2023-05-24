@@ -17,6 +17,7 @@ import Adminmain from "./Adminmain";
 import Cart from "./cart page/Cart";
 import SingleproductDetails from "./SingleproductDetails";
 import Soona from "./Soona";
+import Checkoutpage from "./cart page/Checkoutpage";
 
 function App() {
   const [cookieval, setCookieval] = useState(cookie.get("email"));
@@ -58,6 +59,7 @@ function App() {
         <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/soona" element={<Soona />} />
+        <Route path="/checkout" element={<Checkoutpage />} />
         <Route
           path="/singleproductdetails"
           element={<SingleproductDetails />}

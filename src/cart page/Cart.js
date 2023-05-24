@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircle, BsPlusLg } from "react-icons/bs";
 import { TiShoppingCart } from "react-icons/ti";
 import { BsCurrencyRupee } from "react-icons/bs";
@@ -13,10 +13,17 @@ import {
 } from "../redexcart/Slice";
 import { decreaseCart } from "../redexcart/Slice";
 import { Divider } from "antd";
+import Cookies from "js-cookie";
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   console.log("cart",cart);
+  const [cookieval, setCookieval] = useState(Cookies.get("email"));
+const navigate=useNavigate()
+  const Check = () => {
+  cookieval == undefined ? navigate("/login") : navigate("/checkout");
+}
+
 
   useEffect(() => {
     dispatch(getTotals());
@@ -141,7 +148,7 @@ export default function Cart() {
                   Total Ammound: <BsCurrencyRupee className="mt-[5.5px] ml-1" />
                   {cart.cartTotalaAmount}
                 </p>
-                <button className="absolute bottom-5 border border-[#b4b0b0] px-5 left-[28%] py-1 font-bold text-[#707070] active:bg-[#9c9c9c] active:text-[#ffffff]">
+                <button onClick={(e)=>Check(e)} className="absolute bottom-5 border border-[#b4b0b0] px-5 left-[28%] py-1 font-bold text-[#707070] active:bg-[#9c9c9c] active:text-[#ffffff]">
                   CheckOut
                 </button>
               </div>
