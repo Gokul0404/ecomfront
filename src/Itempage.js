@@ -31,10 +31,11 @@ export default function Itempage(props) {
     try {
         Cookies.set("singleproducts", JSON.stringify(datas));
       navigate("/singleproductdetails");
-      
+     
     } catch (error) {
       console.log(error);
       console.log("itemspage");
+       toast.error("not save cookies");
     }
   
   };

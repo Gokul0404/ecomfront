@@ -14,6 +14,7 @@ import {
 import { decreaseCart } from "../redexcart/Slice";
 import { Divider } from "antd";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -21,7 +22,15 @@ export default function Cart() {
   const [cookieval, setCookieval] = useState(Cookies.get("email"));
 const navigate=useNavigate()
   const Check = () => {
-  cookieval == undefined ? navigate("/login") : navigate("/checkout");
+
+    try {
+      cookieval === undefined ? navigate("/login") : navigate("/checkout");
+        
+    } catch (error) {
+      toast.error("not navigate")
+    
+    }
+ 
 }
 
 
@@ -79,17 +88,17 @@ const navigate=useNavigate()
               {cart.cartItems?.map((d) => {
                 return (
                   <div
-                    className="flex w-[70vw] border border-t-[#c7c7c7]"
+                    className="flex w-[70vw] border border-t-[#c7c7c7] relative"
                     key={d.id}
                   >
                     <div className="flex">
                       <div className=" flex w-[350px] ">
-                        <span className="w-[170px] ml-5">
-                          <img src={d.img[0]} className=" " />
+                        <span className="w-[170px] ml-5 scale-[70%]">
+                          <img src={d.img[0]} className=" w-fit " />
                         </span>
                         <div className="pt-5 pl-5">
                           <h2>{d.name}</h2>
-                          <p onClick={() => handleRemoveFormCart(d)} className="cursor-pointer px-[10px] pb-[2px] mt-[100px] text-[12px] font-[600] border border-[#e4e4e4] text-[#c9c8c8] hover:text-[#808080]">Remove Product</p>
+                          <p onClick={() => handleRemoveFormCart(d)} className="cursor-pointer px-[10px] pb-[2px]  absolute bottom-5 text-[12px] font-[600] border border-[#e4e4e4] text-[#c9c8c8] hover:text-[#808080]">Remove Product</p>
                         </div>
                       </div>
                     </div>
@@ -146,7 +155,7 @@ const navigate=useNavigate()
                 <p className="font-bold pl-10 pt-10">Total Quantity: {cart.cartTotalQuantity}</p>
                 <p className="font-bold pl-10 pt-10 flex">
                   Total Ammound: <BsCurrencyRupee className="mt-[5.5px] ml-1" />
-                  {cart.cartTotalaAmount}
+                  {cart.cartTotalaAmount}.00
                 </p>
                 <button onClick={(e)=>Check(e)} className="absolute bottom-5 border border-[#b4b0b0] px-5 left-[28%] py-1 font-bold text-[#707070] active:bg-[#9c9c9c] active:text-[#ffffff]">
                   CheckOut

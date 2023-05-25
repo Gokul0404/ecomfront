@@ -8,9 +8,8 @@ import { addToCart } from "./redexcart/Slice";
 import { useNavigate } from "react-router-dom";
 
 export default function SingleproductDetails() {
-  const navigate = useNavigate();
-  try {
-  } catch (error) {}
+  
+  
   const alldatas = JSON.parse(Cookies.get("singleproducts"));
   console.log("data", alldatas);
   const offerprice = alldatas.off;
@@ -44,8 +43,8 @@ export default function SingleproductDetails() {
               } `}
             />
             <div className="flex justify-center items-center  ">
-              <div className="w-[350px] h-[330px] !scale-[100%] overflow-hidden">
-                <img draggable="false" src={images} className="h-full w-full" />
+              <div className="w-[350px] h-[330px] !scale-[100%] overflow-hidden flex justify-center">
+                <img draggable="false" src={images} className="h-full w-fit" />
               </div>
             </div>
             <div className="flex justify-center items-center gap-x-3 !scale-[80%]">
