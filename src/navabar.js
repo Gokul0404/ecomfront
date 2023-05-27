@@ -1,19 +1,28 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { IoCartOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { cleardata } from "./redexcart/Slice";
 export default function Home() {
 
-    const cart = useSelector((state) => state.cart);
-    console.log(cart);
+  const dispatch=useDispatch()
+  const ids = Cookies.get("ids");
+  const cart = useSelector((state) => state.cart);
+  console.log(cart);
   const [pic, setPic] = useState(false);
-  const cookieval = Cookies.get('email')
-  
+  const cookieval = Cookies.get("email");
+const navigate=useNavigate()
   const logout = () => {
-    Cookies.remove("email")
-  }
+    Cookies.remove("email");
+    Cookies.remove("ids");
+    Cookies.remove("name");
+    localStorage.removeItem("cartitem");
+    dispatch(cleardata());
+    navigate('/login')
+  };
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -85,7 +94,8 @@ export default function Home() {
                     <Link to="/login"> Dashboard</Link>
                   </a>
                   <p className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">
-                    <Link to='/soona'> Team</Link></p>
+                    <Link to="/food"> Products</Link>
+                  </p>
                   <a
                     href="#"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -96,7 +106,7 @@ export default function Home() {
                     href="#"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
                   >
-                    Calendar
+                    Cart
                   </a>
                 </div>
               </div>
@@ -110,7 +120,13 @@ export default function Home() {
                 <Link to="/cart" className="relative">
                   <IoCartOutline className="text-[25px] mr-10 hover:text-white" />
                   <p className="absolute bg-red-600 rounded-full w-5 text-[12px] top-[-8px] left-4 text-white">
-                    {cart.cartItems.length}
+                    {/* {cart.cartItems.length} */}
+
+                    {cart.cartItems
+                      .filter((data) => {
+                        return data.iduser === ids;
+                      }).length
+                     }
                   </p>
                 </Link>
                 <svg
@@ -219,9 +235,9 @@ export default function Home() {
                     </a>
                     <a
                       href="#"
-                      className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                      className="text-gray-300 hover:bg-green-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
                     >
-                      Calendar
+                      Users
                     </a>
                   </div>
                 </div>
@@ -255,7 +271,7 @@ export default function Home() {
               href="#"
               className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
             >
-              Calendar
+              Users
             </a>
           </div>
         </div>

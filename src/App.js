@@ -58,7 +58,7 @@ function App() {
         <Route path="/rpass" element={<Resetpass />} />
         <Route path="/adminpage" element={<AdminPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/soona" element={<Soona />} />
+        <Route path="/food" element={<Soona />} />
         <Route path="/checkout" element={<Checkoutpage />} />
         <Route
           path="/singleproductdetails"

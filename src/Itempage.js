@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { addToCart, addsingleproductData } from "./redexcart/Slice";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import axios from "axios";
 export default function Itempage(props) {
   let pricev = props.price;
   let off = props.offer[0];
@@ -16,12 +17,21 @@ export default function Itempage(props) {
   // console.log(pricev, price1, final, off);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const ids = Cookies.get("ids");
+const email=Cookies.get('email')
   const handleAddtoCart = (props) => {
-    const datas = { ...props, off: final };
-    console.log("itemspage", datas);
-    dispatch(addToCart(datas)); //addto cart is comming in slice file
-    // navigate("/cart");
+    //   const id = async () => {
+    //     const ids = await axios.post("http://localhost:5000/myaccount");
+    //     console.log("ids", ids);
+    // }
+
+
+
+      const datas = { ...props, off: final, iduser: ids };
+
+      dispatch(addToCart(datas)); //addto cart is comming in slice file
+      // navigate("/cart");
+    
   };
 
   const singleProduct = (props, final) => {
@@ -29,15 +39,13 @@ export default function Itempage(props) {
     const datas = { ...props, off: final };
     console.log("off", datas);
     try {
-        Cookies.set("singleproducts", JSON.stringify(datas));
+      Cookies.set("singleproducts", JSON.stringify(datas));
       navigate("/singleproductdetails");
-     
     } catch (error) {
       console.log(error);
       console.log("itemspage");
-       toast.error("not save cookies");
+      toast.error("not save cookies");
     }
-  
   };
 
   return (

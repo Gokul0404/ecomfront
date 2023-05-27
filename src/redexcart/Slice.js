@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { IoTennisballSharp } from "react-icons/io5";
@@ -18,9 +19,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     //add the product
-    addToCart(state, action) {
+  addToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.id 
       );
 
       
@@ -38,6 +39,10 @@ const cartSlice = createSlice({
          console.log("state", action.payload);
       }
       localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
+
+      const items = state.cartItems
+
+    //  axios.post("http://localhost:5000/additems", { items });
      
     },
 
@@ -76,7 +81,7 @@ const cartSlice = createSlice({
 
       cleardata(state, action) {
           state.cartItems = []
-          toast.success('clear the products')
+          // toast.success('clear the products')
           localStorage.setItem("cartitem", JSON.stringify(state.cartItems))
 },
 

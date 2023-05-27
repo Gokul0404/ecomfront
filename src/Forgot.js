@@ -47,11 +47,11 @@ const digits='0123456789'
 
 
 
-        // await axios
-        //   .post("http://localhost:5000/sendemail", {
-        //     email,
-        //     OTP
-        //   })
+        await axios
+          // .post("http://localhost:5000/sendemail", {
+          //   email,
+          //   OTP
+          // })
         await axios
           .post("https://ecomserver.vercel.app/sendemail", {
             email,
