@@ -21,7 +21,7 @@ export default function Myaccount() {
 
   const dispatch = useDispatch();
 
-  const [name, setname] = useState("");
+  const [name, setname] = useState();
 const navigate=useNavigate()
   const logout = () => {
     Cookie.remove("email");

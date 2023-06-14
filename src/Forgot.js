@@ -47,11 +47,11 @@ const digits='0123456789'
 
 
 
-        await axios
-          // .post("http://localhost:5000/sendemail", {
-          //   email,
-          //   OTP
-          // })
+        // await axios
+        //   .post("http://localhost:5000/sendemail", {
+        //     email,
+        //     OTP
+        //   })
         await axios
           .post("https://ecomserver.vercel.app/sendemail", {
             email,
@@ -104,7 +104,10 @@ const digits='0123456789'
       {popup && (
         <div className="z-20 fixed top-0 left-0 right-0 bottom-0  bg-gray-800 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg p-6 shadow-xl relative">
-         <VscChromeClose className="absolute right-5 hover:text-red-600 cursor-pointer" onClick={(e)=>setPopup(false)}/>
+            <VscChromeClose
+              className="absolute right-5 hover:text-red-600 cursor-pointer"
+              onClick={(e) => setPopup(false)}
+            />
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Enter Code</h2>
             </div>
@@ -156,7 +159,8 @@ const digits='0123456789'
               </div>
 
               <Captcha
-                sitekey="6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
+                sitekey="6Le6xCAmAAAAAOwOjawHOZPdJK4MA7Ku9LS7D6pT"
+                // sitekey="6LdQYPMlAAAAADTw20RR9s7Gqots9x_9xzM5ANsR"
                 className="pb-5"
                 onChange={(value) => setCaptcha(value)}
               />

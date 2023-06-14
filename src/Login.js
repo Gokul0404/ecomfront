@@ -12,6 +12,7 @@ import { signInWithPopup} from 'firebase/auth'
 import { auth,provider } from "./firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { changeUser } from "./redux/reducer";
+import Cookies from "js-cookie";
 export default function Login() {
   //auth finaly get the values in user......auth final work.......
   // const user = useSelector((state) => state.user.value);

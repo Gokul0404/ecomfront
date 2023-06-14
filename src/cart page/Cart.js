@@ -15,6 +15,11 @@ import { decreaseCart } from "../redexcart/Slice";
 import { Divider } from "antd";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import axios from "axios";
+
+
+
+
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -22,6 +27,18 @@ export default function Cart() {
   const [cookieval, setCookieval] = useState(Cookies.get("email"));
   const navigate = useNavigate();
   const ids = Cookies.get("ids");
+
+const Cartit = async () => {
+  try {
+    const b = await axios.get("http://localhost:5000/getitemscart");
+
+    console.log("bbbb", b.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
   const Check = () => {
     try {
       cookieval === undefined ? navigate("/login") : navigate("/checkout");
@@ -31,7 +48,8 @@ export default function Cart() {
   };
 
   useEffect(() => {
-    dispatch(getTotals());
+    dispatch(getTotals())
+    Cartit() 
   }, [cart]);
 
   const handleRemoveFormCart = (d) => {

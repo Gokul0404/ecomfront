@@ -5,45 +5,70 @@ import { useEffect } from "react";
 import { IoTennisballSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 
+
 const initialState = {
-  cartItems: localStorage.getItem("cartitem")  //cartItem la the values array va store aguthu
+  cartItems: localStorage.getItem("cartitem") //cartItem la the values array va store aguthu
     ? JSON.parse(localStorage.getItem("cartitem"))
     : [],
+
   cartTotalQuantity: 0,
   cartTotalaAmount: 0,
-  sigleproduct:[]
-}; 
+  sigleproduct: [],
+};
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     //add the product
-  addToCart(state, action) {
+    addToCart(state, action) {
       const itemIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id 
+        (item) => item.id === action.payload.id
       );
 
-      
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
         toast.info(
-          `Increased ${state.cartItems[itemIndex].name} cart Quantity`
-        );
+          `Increased ${state.cartItems[itemIndex].name} cart Quantity`);
+        
+      
+        
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);
         toast.success(` ${action.payload.name} added to cart`);
         // state.cartItems.push(action.payload)
         console.log("item", itemIndex);
-         console.log("state", action.payload);
+        console.log("state", action.payload);
       }
       localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
-
-      const items = state.cartItems
-
-    //  axios.post("http://localhost:5000/additems", { items });
+      const items=state.cartItems
+      const itemsup = JSON.stringify(state.cartItems)
+      const valuesd = JSON.parse(itemsup);
      
+   const da=valuesd.map((e) => {
+     return e.id
+   
+        })
+      const d = da.map((e) => {
+  return e
+})
+      
+
+      if (itemIndex >= 0) {
+        {
+          valuesd.map((values) => {
+           
+                axios.put(`http://localhost:5000/updateitems/${d}`, { values });
+                console.log("dcvtvdcerf", values);
+          })
+        }
+    
+        
+      } else {
+      axios.post("http://localhost:5000/additems", { items });  
+   } 
+   
     },
 
     //remove the product in cart page   //Increase the product quantity
@@ -55,6 +80,11 @@ const cartSlice = createSlice({
       state.cartItems = nextCartItems;
       localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
       toast.success(`${action.payload.name} remove from cart`);
+
+      const b = JSON.stringify(state.cartItems);
+      console.log("incre", JSON.parse(b));
+
+      
     },
 
     // decreas the product count in cart page
@@ -75,39 +105,40 @@ const cartSlice = createSlice({
         toast.error("minimum 1 quantity should");
       }
       localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
-      },
-    
+    },
+
     //remove items
 
-      cleardata(state, action) {
-          state.cartItems = []
-          // toast.success('clear the products')
-          localStorage.setItem("cartitem", JSON.stringify(state.cartItems))
-},
+    cleardata(state, action) {
+      state.cartItems = [];
+      // toast.success('clear the products')
+      localStorage.setItem("cartitem", JSON.stringify(state.cartItems));
 
-      //get total product value
 
-      getTotals(state, action) {
-          
-          let { total, quantity } = state.cartItems.reduce(
-              (cartTotal, cartItem) => {
-                  const { off, price, cartQuantity } = cartItem;
-                  const itemTotal =(off ? off: price )* cartQuantity
-                  cartTotal.total += itemTotal
-                  cartTotal.quantity += cartQuantity
-                  return cartTotal;
-              },
-              {
-                  total: 0,
-                  quantity:0
-              }
-          )
-
-          state.cartTotalQuantity = quantity;
-          state.cartTotalaAmount=total
+      axios.delete("http://localhost:5000/dele");
     },
-      
-      
+
+    //get total product value
+
+    getTotals(state, action) {
+      let { total, quantity } = state.cartItems.reduce(
+        (cartTotal, cartItem) => {
+          const { off, price, cartQuantity } = cartItem;
+          const itemTotal = (off ? off : price) * cartQuantity;
+          cartTotal.total += itemTotal;
+          cartTotal.quantity += cartQuantity;
+          return cartTotal;
+        },
+        {
+          total: 0,
+          quantity: 0,
+        }
+      );
+
+      state.cartTotalQuantity = quantity;
+      state.cartTotalaAmount = total;
+    },
+
     // addsingleproductData(state, action) {
     //   const siglevalue = action.payload
 
@@ -117,10 +148,9 @@ const cartSlice = createSlice({
 
     //   }
 
-      
-    },
-  
+  },
 });
+
 
 
 export const {

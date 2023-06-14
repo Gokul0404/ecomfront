@@ -35,10 +35,10 @@ export default function Allitempage() {
   const alldatas = async () => {
     try {
       setLoading(true);
-      await axios
-        // .post("http://localhost:5000/alldatas", {
-        //   selectedoption,
-        // })
+      // await axios
+      //   .post("http://localhost:5000/alldatas", {
+      //     selectedoption,
+      //   })
       await axios
         .post("https://ecomserver.vercel.app/alldatas", {
           selectedoption,

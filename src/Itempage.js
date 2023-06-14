@@ -1,9 +1,9 @@
 import { Button } from "antd";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BsCurrencyRupee } from "react-icons/bs";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { addToCart, addsingleproductData } from "./redexcart/Slice";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -18,28 +18,61 @@ export default function Itempage(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const ids = Cookies.get("ids");
-const email=Cookies.get('email')
+  const email = Cookies.get('email')
+   const cart = useSelector((state) => state.cart);
+const [show, setShow]=useState(true)
+
+
+// const Cartit = async () => {
+//   try {
+//     const b = await axios.get("http://localhost:5000/getitemscart");
+
+//     console.log("bbbb", b.data);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+    const d = cart.cartItems.map((e) => {
+      return e.id;
+    });
+    // console.log("ccccc", d);
+
+
+
+ 
+  
+
   const handleAddtoCart = (props) => {
     //   const id = async () => {
-    //     const ids = await axios.post("http://localhost:5000/myaccount");
-    //     console.log("ids", ids);
+    //     const ids = await axios.post("http://localhost:5000/myaccount")
+    //     console.log("ids", ids)
     // }
 
-
-
-      const datas = { ...props, off: final, iduser: ids };
-
-      dispatch(addToCart(datas)); //addto cart is comming in slice file
-      // navigate("/cart");
     
+    setShow(false);
+
+    const datas = { ...props, off: final, iduser: ids };
+ 
+ 
+
+   
+
+
+    // if(datas.id ===d[0] ? console.log("true1233") : console.log("false123"))
+
+
+
+    dispatch(addToCart(datas)); //addto cart is comming in slice file
+    // navigate("/cart")
   };
 
   const singleProduct = (props, final) => {
-    // dispatch(addsingleproductData(props));
-    const datas = { ...props, off: final };
-    console.log("off", datas);
+    // dispatch(addsingleproductData(props))
+    const datas = { ...props, off: final }
+    console.log("off", datas)
     try {
-      Cookies.set("singleproducts", JSON.stringify(datas));
+      Cookies.set("singleproducts", JSON.stringify(datas))
       navigate("/singleproductdetails");
     } catch (error) {
       console.log(error);
@@ -47,6 +80,7 @@ const email=Cookies.get('email')
       toast.error("not save cookies");
     }
   };
+
 
   return (
     <div>
@@ -102,9 +136,20 @@ const email=Cookies.get('email')
         <div>
           <button
             onClick={() => handleAddtoCart(props)}
-            className="absolute bottom-2 right-8 bg-[#ee540c] active:bg-[#fc5e15] px-2 pb-[0.5px] rounded-lg text-white"
+            className={`${show ? "absolute bottom-2 right-8 bg-[#ee540c] active:bg-[#fc5e15] px-2 pb-[0.5px] rounded-lg text-white" : "hidden"}`}
           >
             Add to Cart
+          </button>
+          <button
+            onClick={() => navigate('/cart')}
+            
+            className={`${
+              show
+                ? "hidden"
+                : "absolute bottom-2 right-8 bg-[#ee530cb6]  px-2 pb-[0.5px] rounded-lg text-white cursor-default"
+            }`}
+          >
+            Go to Cart
           </button>
         </div>
       </div>
